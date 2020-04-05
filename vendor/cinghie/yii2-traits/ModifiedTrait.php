@@ -7,24 +7,27 @@
  * @github https://github.com/cinghie/yii2-traits
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-traits
- * @version 1.1.1
+ * @version 1.2.0
  */
 
 namespace cinghie\traits;
 
 use Yii;
 use dektrium\user\models\User;
-use kartik\widgets\DateTimePicker;
 use kartik\detail\DetailView;
+use kartik\form\ActiveField;
 use kartik\helpers\Html;
+use kartik\widgets\ActiveForm;
+use kartik\widgets\DateTimePicker;
 use kartik\widgets\Select2;
+use yii\base\InvalidParamException;
 use yii\helpers\Url;
 
 /**
  * Trait ModifiedTrait
  *
  * @property string $modified
- * @property integer $modified_by
+ * @property int $modified_by
  * @property User $modifiedBy
  */
 trait ModifiedTrait
@@ -37,8 +40,8 @@ trait ModifiedTrait
     {
         return [
             [['modified'], 'safe'],
-            [['modified_by'], 'integer'],
-            [['modified_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['modified_by' => 'id']],
+            [['modified_by'], 'int'],
+            [['modified_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['modified_by' => 'id']],
         ];
     }
 
@@ -59,21 +62,22 @@ trait ModifiedTrait
     public function getModifiedBy()
     {
         /** @var $this \yii\db\ActiveRecord */
-        return $this->hasOne(User::className(), ['id' => 'modified_by'])->from(User::tableName() . ' AS modifiedBy');
+        return $this->hasOne(User::class, ['id' => 'modified_by'])->from(User::tableName() . ' AS modifiedBy');
     }
 
     /**
      * Generate Modified Form Widget
      *
-     * @param \kartik\widgets\ActiveForm $form
+     * @param ActiveForm $form
      *
-     * @return \kartik\form\ActiveField
+     * @return ActiveField
      */
     public function getModifiedWidget($form)
     {
         $modified = $this->isNewRecord ? '0000-00-00 00:00:00' : ($this->modified ? $this->modified : '0000-00-00 00:00:00');
 
-	    return $form->field($this, 'modified')->widget(DateTimePicker::className(), [
+	    /** @var \yii\base\Model $this */
+	    return $form->field($this, 'modified')->widget(DateTimePicker::class, [
             'disabled' => true,
             'options' => [
                 'value' => $modified,
@@ -99,15 +103,16 @@ trait ModifiedTrait
     /**
      * Generate ModifiedBy Form Widget
      *
-     * @param \kartik\widgets\ActiveForm $form
+     * @param ActiveForm $form
      *
-     * @return \kartik\form\ActiveField
+     * @return ActiveField
      */
     public function getModifiedByWidget($form)
     {
         $modified_by = !$this->modified_by ? NULL : [$this->modified_by => $this->modifiedBy->username];
 
-        return $form->field($this, 'modified_by')->widget(Select2::className(), [
+	    /** @var \yii\base\Model $this */
+        return $form->field($this, 'modified_by')->widget(Select2::class, [
             'data' => $modified_by,
             'addon' => [
                 'prepend' => [
@@ -121,7 +126,7 @@ trait ModifiedTrait
      * Generate GridView for ModifiedBy
      *
      * @return string
-     * @throws \yii\base\InvalidParamException
+     * @throws InvalidParamException
      */
     public function getModifiedByGridView()
     {
@@ -139,15 +144,15 @@ trait ModifiedTrait
      * Generate DetailView for ModifiedBy
      *
      * @return array
-     * @throws \yii\base\InvalidParamException
+     * @throws InvalidParamException
      */
     public function getModifiedByDetailView()
     {
         return [
             'attribute' => 'modified_by',
             'format' => 'html',
-            'value' => $this->modified_by ? Html::a($this->modifiedBy->username,urldecode(Url::toRoute(['/user/admin/update', 'id' => $this->modifiedBy]))) : Yii::t('traits', 'Nobody'),
             'type' => DetailView::INPUT_SWITCH,
+            'value' => $this->modified_by ? Html::a($this->modifiedBy->username,urldecode(Url::toRoute(['/user/admin/update', 'id' => $this->modifiedBy]))) : Yii::t('traits', 'Nobody'),
             'valueColOptions'=> [
                 'style'=>'width:30%'
             ]

@@ -7,24 +7,28 @@
  * @github https://github.com/cinghie/yii2-traits
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-traits
- * @version 1.1.1
+ * @version 1.2.0
  */
 
 namespace cinghie\traits;
 
 use Yii;
 use dektrium\user\models\User;
-use kartik\widgets\DateTimePicker;
 use kartik\detail\DetailView;
+use kartik\form\ActiveField;
 use kartik\helpers\Html;
+use kartik\widgets\ActiveForm;
+use kartik\widgets\DateTimePicker;
 use kartik\widgets\Select2;
+use yii\base\InvalidParamException;
+use yii\db\ActiveQuery;
 use yii\helpers\Url;
 
 /**
  * Trait CreatedTrait
  *
  * @property string $created
- * @property integer $created_by
+ * @property int $created_by
  * @property User $createdBy
  */
 trait CreatedTrait
@@ -37,8 +41,8 @@ trait CreatedTrait
     {
         return [
             [['created'], 'safe'],
-            [['created_by'], 'integer'],
-            [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
+            [['created_by'], 'int'],
+            [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['created_by' => 'id']],
         ];
     }
 
@@ -54,26 +58,27 @@ trait CreatedTrait
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getCreatedBy()
     {
         /** @var $this \yii\db\ActiveRecord */
-        return $this->hasOne(User::className(), ['id' => 'created_by'])->from(User::tableName() . ' AS createdBy');
+        return $this->hasOne(User::class, ['id' => 'created_by'])->from(User::tableName() . ' AS createdBy');
     }
 
     /**
      * Generate Created Form Widget
      *
-     * @param \kartik\widgets\ActiveForm $form
+     * @param ActiveForm $form
      *
-     * @return \kartik\form\ActiveField
+     * @return ActiveField
      */
     public function getCreatedWidget($form)
     {
         $created = $this->isNewRecord ? date('Y-m-d H:i:s') : $this->created;
 
-        return $form->field($this, 'created')->widget(DateTimePicker::className(), [
+	    /** @var $this \yii\base\Model */
+	    return $form->field($this, 'created')->widget(DateTimePicker::class, [
             'options' => [
                 'value' => $created,
             ],
@@ -98,15 +103,16 @@ trait CreatedTrait
     /**
      * Generate CreatedBy Form Widget
      *
-     * @param \kartik\widgets\ActiveForm $form
+     * @param ActiveForm $form
      *
-     * @return \kartik\form\ActiveField
+     * @return ActiveField
      */
     public function getCreatedByWidget($form)
     {
         $created_by = $this->isNewRecord ? $this->getCurrentUserSelect2() : [$this->created_by => $this->createdBy->username];
 
-        return $form->field($this, 'created_by')->widget(Select2::className(), [
+	    /** @var $this \yii\base\Model */
+        return $form->field($this, 'created_by')->widget(Select2::class, [
             'data' => $created_by,
             'addon' => [
                 'prepend' => [
@@ -120,7 +126,7 @@ trait CreatedTrait
      * Generate GridView for CreatedBy
      *
      * @return string
-     * @throws \yii\base\InvalidParamException
+     * @throws InvalidParamException
      */
     public function getCreatedByGridView()
     {
@@ -138,15 +144,15 @@ trait CreatedTrait
      * Generate DetailView for CreatedBy
      *
      * @return array
-     * @throws \yii\base\InvalidParamException
+     * @throws InvalidParamException
      */
     public function getCreatedByDetailView()
     {
         return [
             'attribute' => 'created_by',
             'format' => 'html',
-            'value' => $this->created_by ? Html::a($this->createdBy->username,urldecode(Url::toRoute(['/user/admin/update', 'id' => $this->createdBy]))) : Yii::t('traits', 'Nobody'),
             'type' => DetailView::INPUT_SWITCH,
+            'value' => $this->created_by ? Html::a($this->createdBy->username,urldecode(Url::toRoute(['/user/admin/update', 'id' => $this->createdBy]))) : Yii::t('traits', 'Nobody'),
             'valueColOptions'=> [
                 'style'=>'width:30%'
             ]

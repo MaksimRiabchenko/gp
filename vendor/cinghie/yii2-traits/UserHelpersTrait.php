@@ -7,13 +7,15 @@
  * @github https://github.com/cinghie/yii2-traits
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-traits
- * @version 1.1.1
+ * @version 1.2.0
  */
 
 namespace cinghie\traits;
 
 use Yii;
+use dektrium\user\models\Profile;
 use dektrium\user\models\User;
+use yii\web\IdentityInterface;
 
 /**
  * Trait UserHelperTrait
@@ -25,7 +27,6 @@ trait UserHelpersTrait
 	 * Get the User by user email
 	 *
 	 * @return User[] array
-	 * @internal param string $email
 	 */
 	public function getUserByEmail()
 	{
@@ -38,13 +39,29 @@ trait UserHelpersTrait
 	}
 
 	/**
+	 * Get current User or Current User field
+	 *
+	 * @param string $field
+	 *
+	 * @return IdentityInterface | string | int
+	 */
+	public function getCurrentUser($field = '')
+	{
+		if($field) {
+			return Yii::$app->user->identity->$field;
+		}
+
+		return Yii::$app->user->identity;
+	}
+
+	/**
 	 * Get current User Profile object or fied if on param
 	 *
 	 * @param string $field
 	 *
-	 * @return \dektrium\user\models\Profile || string || int
+	 * @return Profile | string | int
 	 */
-	public function getCurentUserProfile($field = '')
+	public function getCurrentUserProfile($field = '')
 	{
 		if($field) {
 			return Yii::$app->user->identity->profile->$field;
@@ -57,7 +74,6 @@ trait UserHelpersTrait
      * Return an array with current User
      *
      * @return array
-     * @internal param User $currentUser
      */
     public function getCurrentUserSelect2()
     {
@@ -92,14 +108,14 @@ trait UserHelpersTrait
     /**
      * Return array with all Users (not blocked or not unconfirmed), adding current User on first position [ 'user_id' => 'username' ]
      *
-     * @param integer $user_id
+     * @param int $user_id
      * @param string $username
      *
      * @return array
      */
     public function getUsersSelect2($user_id = 0, $username = '')
     {
-        if(!$user_id || !$username) {
+        if(!$user_id | !$username) {
             $user_id = Yii::$app->user->identity->id;
             $username = Yii::$app->user->identity->username;
         }

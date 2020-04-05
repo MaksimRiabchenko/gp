@@ -7,11 +7,13 @@
  * @github https://github.com/cinghie/yii2-traits
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-traits
- * @version 1.1.1
+ * @version 1.2.0
  */
 
 namespace cinghie\traits;
 
+use kartik\form\ActiveField;
+use kartik\widgets\ActiveForm;
 use Yii;
 use kartik\detail\DetailView;
 use kartik\helpers\Html;
@@ -20,7 +22,7 @@ use kartik\widgets\Select2;
 /**
  * Trait StateTrait
  *
- * @property integer $state
+ * @property int $state
  */
 trait StateTrait
 {
@@ -31,7 +33,7 @@ trait StateTrait
     public static function rules()
     {
         return [
-            [['state'], 'integer']
+            [['state'], 'int']
         ];
     }
 
@@ -72,14 +74,14 @@ trait StateTrait
     /**
      * Generate State Form Widget
      *
-     * @param \kartik\widgets\ActiveForm $form
+     * @param ActiveForm $form
      *
-     * @return \kartik\form\ActiveField
+     * @return ActiveField
      */
     public function getStateWidget($form)
     {
         /** @var $this \yii\base\Model */
-        return $form->field($this, 'state')->widget(Select2::className(), [
+        return $form->field($this, 'state')->widget(Select2::class, [
             'data' => $this->getStateSelect2(),
             'addon' => [
                 'prepend' => [
@@ -121,16 +123,16 @@ trait StateTrait
         return [
             'attribute' => 'state',
             'format' => 'html',
-            'value' => $this->state ? '<span class="label label-success">'. Yii::t('traits', 'Actived').'</span>' : '<span class="label label-danger">'. Yii::t('traits', 'Deactivated').'</span>',
             'type' => DetailView::INPUT_SWITCH,
+            'value' => $this->state ? '<span class="label label-success">'. Yii::t('traits', 'Actived').'</span>' : '<span class="label label-danger">'. Yii::t('traits', 'Deactivated').'</span>',
+            'valueColOptions'=> [
+	            'style'=>'width:30%'
+            ],
             'widgetOptions' => [
                 'pluginOptions' => [
                     'onText' => 'Yes',
                     'offText' => 'No',
                 ]
-            ],
-            'valueColOptions'=> [
-                'style'=>'width:30%'
             ]
         ];
     }

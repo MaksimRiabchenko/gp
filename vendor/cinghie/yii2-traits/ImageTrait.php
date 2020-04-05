@@ -7,14 +7,19 @@
  * @github https://github.com/cinghie/yii2-traits
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-traits
- * @version 1.1.1
+ * @version 1.2.0
  */
 
 namespace cinghie\traits;
 
 use Yii;
+use Exception;
+use kartik\form\ActiveField;
+use kartik\widgets\ActiveForm;
 use kartik\widgets\FileInput;
+use yii\base\InvalidParamException;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /**
  * Trait ImageTrait
@@ -32,9 +37,10 @@ trait ImageTrait
     public static function rules()
     {
         $getimageallowed = ImageTrait::getImagesAllowed();
+
         return [
             [['image_caption', 'image_credits'], 'string', 'max' => 255],
-            [['image'], 'file', 'extensions' => $getimageallowed,],
+            [['image'], 'file', 'extensions' => $getimageallowed],
             [['image'], 'safe'],
         ];
     }
@@ -55,7 +61,7 @@ trait ImageTrait
      * Generate Image Form Widget
      *
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function getImageWidget()
     {
@@ -77,6 +83,7 @@ trait ImageTrait
                 'showUpload' => false,
                 'initialPreview' => $this->image ? $this->getImageUrl() : false,
                 'initialPreviewAsData' => $this->image ? true : false,
+                'initialPreviewConfig' => $this->isNewRecord ? [] : [ ['url' => Url::to(['deleteimage', 'id' => $this->id])] ],
                 'overwriteInitial' => $this->image ? true : false
             ]
         ]);
@@ -87,8 +94,9 @@ trait ImageTrait
     /**
      * Generate Image Caption Form Widget
      *
-     * @param \kartik\widgets\ActiveForm $form
-     * @return \kartik\form\ActiveField
+     * @param ActiveForm $form
+     *
+     * @return ActiveField
      */
     public function getImageCaptionWidget($form)
     {
@@ -105,8 +113,9 @@ trait ImageTrait
     /**
      * Generate Image Credits Form Widget
      *
-     * @param \kartik\widgets\ActiveForm $form
-     * @return \kartik\form\ActiveField
+     * @param ActiveForm $form
+     *
+     * @return ActiveField
      */
     public function getImageCreditsWidget($form)
     {
@@ -114,7 +123,7 @@ trait ImageTrait
         return $form->field($this, 'image_credits', [
             'addon' => [
                 'prepend' => [
-                    'content'=>'<i class="glyphicon-barcode"></i>'
+                    'content'=>'<i class="fa fa-barcode"></i>'
                 ]
             ]
         ])->textInput(['maxlength' => true]);
@@ -124,7 +133,7 @@ trait ImageTrait
 	 * Generate GridView for Image
 	 *
 	 * @return string
-	 * @throws \yii\base\InvalidParamException
+	 * @throws InvalidParamException
 	 */
 	public function getImageGridView()
 	{

@@ -7,12 +7,14 @@
  * @github https://github.com/cinghie/yii2-traits
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-traits
- * @version 1.1.1
+ * @version 1.2.0
  */
 
 namespace cinghie\traits;
 
 use Yii;
+use kartik\form\ActiveField;
+use kartik\widgets\ActiveForm;
 use kartik\widgets\Select2;
 
 /**
@@ -64,14 +66,14 @@ trait LanguageTrait
     /**
      * Generate Language Form Widget
      *
-     * @param \kartik\widgets\ActiveForm $form
+     * @param ActiveForm $form
      *
-     * @return \kartik\form\ActiveField
+     * @return ActiveField
      */
     public function getLanguageWidget($form)
     {
         /** @var $this \yii\base\Model */
-        return $form->field($this, 'language')->widget(Select2::className(), [
+        return $form->field($this, 'language')->widget(Select2::class, [
             'data' => $this->getLanguagesSelect2(),
             'addon' => [
                 'prepend' => [

@@ -7,11 +7,12 @@
  * @github https://github.com/cinghie/yii2-traits
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-traits
- * @version 1.1.1
+ * @version 1.2.0
  */
 
 namespace cinghie\traits;
 
+use kartik\widgets\ActiveForm;
 use Yii;
 use kartik\widgets\Select2;
 
@@ -56,14 +57,14 @@ trait SeoTrait
     /**
      * Generate Robots Form Widget
      *
-     * @param \kartik\widgets\ActiveForm $form
+     * @param ActiveForm $form
      *
      * @return string
      */
     public function getRobotsWidget($form)
     {
         /** @var $this \yii\base\Model */
-        return $form->field($this, 'robots')->widget(Select2::className(), [
+        return $form->field($this, 'robots')->widget(Select2::class, [
             'data' => $this->getRobotsOptions(),
             'addon' => [
                 'prepend' => [
@@ -76,7 +77,7 @@ trait SeoTrait
     /**
      * Generate Author Form Widget
      *
-     * @param \kartik\widgets\ActiveForm $form
+     * @param ActiveForm $form
      *
      * @return string
      */
@@ -95,7 +96,7 @@ trait SeoTrait
     /**
      * Generate Copyright Form Widget
      *
-     * @param \kartik\widgets\ActiveForm $form
+     * @param ActiveForm $form
      *
      * @return string
      */
@@ -114,7 +115,7 @@ trait SeoTrait
     /**
      * Generate Meta Description Form Widget
      *
-     * @param \kartik\widgets\ActiveForm $form
+     * @param ActiveForm $form
      *
      * @return string
      */
@@ -133,7 +134,7 @@ trait SeoTrait
     /**
      * Generate Meta Key Form Widget
      *
-     * @param \kartik\widgets\ActiveForm $form
+     * @param ActiveForm $form
      *
      * @return string
      */

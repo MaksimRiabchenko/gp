@@ -7,7 +7,7 @@
  * @github https://github.com/cinghie/yii2-traits
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-traits
- * @version 1.1.1
+ * @version 1.2.0
  */
 
 namespace cinghie\traits;
@@ -21,7 +21,7 @@ use yii\helpers\Url;
 /**
  * Trait AccessTrait
  *
- * @property integer $access
+ * @property int $access
  */
 trait AccessTrait
 {
@@ -56,7 +56,7 @@ trait AccessTrait
     public function getAccessWidget($form)
     {
         /** @var \yii\base\Model $this */
-        return $form->field($this, 'access')->widget(Select2::className(), [
+        return $form->field($this, 'access')->widget(Select2::class, [
             'data' => $this->getRolesSelect2(),
             'addon' => [
                 'prepend' => [
@@ -90,8 +90,8 @@ trait AccessTrait
         return [
             'attribute' => 'access',
             'format' => 'html',
-            'value' => $this->access ? Html::a($this->access,urldecode(Url::toRoute(['/rbac/role/update', 'name' => $this->access]))) : Yii::t('traits', 'Nobody'),
             'type' => DetailView::INPUT_SWITCH,
+            'value' => $this->access ? Html::a($this->access,urldecode(Url::toRoute(['/rbac/role/update', 'name' => $this->access]))) : Yii::t('traits', 'Nobody'),
             'valueColOptions'=> [
                 'style'=>'width:30%'
             ]

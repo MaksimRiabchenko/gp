@@ -1,13 +1,13 @@
 /*!
- * bootstrap-fileinput v4.4.8
+ * bootstrap-fileinput v4.5.3
  * http://plugins.krajee.com/file-input
  *
  * Font Awesome 5 icon theme configuration for bootstrap-fileinput. Requires font awesome 5 assets to be loaded.
  *
  * Author: Kartik Visweswaran
- * Copyright: 2014 - 2018, Kartik Visweswaran, Krajee.com
+ * Copyright: 2014 - 2019, Kartik Visweswaran, Krajee.com
  *
- * Licensed under the BSD 3-Clause
+ * Licensed under the BSD-3-Clause
  * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
  */
 (function ($) {
@@ -32,9 +32,9 @@
         previewZoomButtonIcons: {
             prev: '<i class="fas fa-caret-left fa-lg"></i>',
             next: '<i class="fas fa-caret-right fa-lg"></i>',
-            toggleheader: '<i class="fas fa-fw fa-arrows-v"></i>',
+            toggleheader: '<i class="fas fa-fw fa-arrows-alt-v"></i>',
             fullscreen: '<i class="fas fa-fw fa-arrows-alt"></i>',
-            borderless: '<i class="fas fa-fw fa-external-link"></i>',
+            borderless: '<i class="fas fa-fw fa-external-link-alt"></i>',
             close: '<i class="fas fa-fw fa-times"></i>'
         },
         previewFileIcon: '<i class="fas fa-file"></i>',

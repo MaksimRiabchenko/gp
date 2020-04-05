@@ -7,14 +7,16 @@
  * @github https://github.com/cinghie/yii2-traits
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-traits
- * @version 1.1.1
+ * @version 1.2.0
  */
 
 namespace cinghie\traits;
 
 use Yii;
+use Exception;
 use kartik\detail\DetailView;
 use kartik\helpers\Html;
+use yii\base\InvalidParamException;
 use yii\helpers\Url;
 
 /**
@@ -36,7 +38,7 @@ trait ViewsHelpersTrait
     /**
      * Return action update button
      *
-     * @param integer $id
+     * @param int $id
      *
      * @return string
      */
@@ -55,7 +57,7 @@ trait ViewsHelpersTrait
      * @param string $w
      *
      * @return string
-     * @throws \yii\base\InvalidParamException
+     * @throws InvalidParamException
      */
     public function getUpdateButtonJavascript($w)
     {
@@ -76,7 +78,7 @@ trait ViewsHelpersTrait
     /**
      * Return action delete button
      *
-     * @param integer $id
+     * @param int $id
      *
      * @return string
      */
@@ -101,7 +103,7 @@ trait ViewsHelpersTrait
      * @param string $w
      *
      * @return string
-     * @throws \yii\base\InvalidParamException
+     * @throws InvalidParamException
      */
     public function getDeleteButtonJavascript($w)
     {
@@ -144,7 +146,7 @@ trait ViewsHelpersTrait
      * @param string $w
      *
      * @return string
-     * @throws \yii\base\InvalidParamException
+     * @throws InvalidParamException
      */
     public function getPreviewButtonJavascript($w)
     {
@@ -165,7 +167,7 @@ trait ViewsHelpersTrait
     /**
      * Return action active button
      *
-     * @param integer $id
+     * @param int $id
      *
      * @return string
      */
@@ -189,7 +191,7 @@ trait ViewsHelpersTrait
      * @param string $w
      *
      * @return string
-     * @throws \yii\base\InvalidParamException
+     * @throws InvalidParamException
      */
     public function getActiveButtonJavascript($w)
     {
@@ -215,7 +217,7 @@ trait ViewsHelpersTrait
     /**
      * Return action deactive button
      *
-     * @param integer $id
+     * @param int $id
      *
      * @return string
      */
@@ -239,7 +241,7 @@ trait ViewsHelpersTrait
      * @param string $w
      *
      * @return string
-     * @throws \yii\base\InvalidParamException
+     * @throws InvalidParamException
      */
     public function getDeactiveButtonJavascript($w)
     {
@@ -284,24 +286,36 @@ trait ViewsHelpersTrait
             '<div>'.Yii::t('traits','Save').'</div></div>';
     }
 
-    /**
-     * Return action annull button
-     *
-     * @return string
-     */
-    public function getCancelButton()
+	/**
+	 * Return action cancel button
+	 *
+	 * @param string $icon
+	 * @param string $title
+	 * @param array $url
+	 *
+	 * @return string
+	 */
+    public function getCancelButton($icon = 'fa fa-times-circle text-red', $title = '', array $url = [ '' ])
     {
-        return $this->getStandardButton('fa fa-times-circle text-red', Yii::t('traits','Cancel'), ['']);
+    	$title = $title ?: Yii::t('traits','Cancel');
+
+        return $this->getStandardButton($icon, $title, $url);
     }
 
-    /**
-     * Return action exit button
-     *
-     * @return string
-     */
-    public function getExitButton()
+	/**
+	 * Return action exit button
+	 *
+	 * @param string $icon
+	 * @param string $title
+	 * @param array $url
+	 *
+	 * @return string
+	 */
+    public function getExitButton($icon = 'fa fa-sign-out text-blue', $title = '', array $url = [ 'index' ])
     {
-        return $this->getStandardButton('fa fa-sign-out text-blue', Yii::t('traits','Exit'), ['index']);
+	    $title = $title ?: Yii::t('traits','Exit');
+
+        return $this->getStandardButton($icon, $title, $url);
     }
 
     /**
@@ -318,7 +332,7 @@ trait ViewsHelpersTrait
      * Return javascript for action deactive button
      *
      * @return string
-     * @throws \yii\base\InvalidParamException
+     * @throws InvalidParamException
      */
     public function getSendButtonJavascript()
     {
@@ -338,20 +352,21 @@ trait ViewsHelpersTrait
         });';
     }
 
-    /**
-     * Return standard button
-     *
-     * @param string $icon
-     * @param string $title
-     * @param string | array $url
-     * @param array $class
-     *
-     * @return string
-     */
-    public function getStandardButton($icon,$title,$url, array $class = [ 'class' => 'btn btn-mini' ] )
+	/**
+	 * Return standard button
+	 *
+	 * @param string $icon
+	 * @param string $title
+	 * @param string | array $url
+	 * @param array $aClass
+	 * @param string $divClass
+	 *
+	 * @return string
+	 */
+    public function getStandardButton($icon,$title,$url, array $aClass = [ 'class' => 'btn btn-mini' ], $divClass = 'pull-right text-center' )
     {
-        return '<div class="pull-right text-center" style="margin-right: 25px;">'.
-                    Html::a('<i class="'.$icon.'"></i>', $url , $class).'
+        return '<div class="'.$divClass.'" style="margin-right: 25px;">'.
+                    Html::a('<i class="'.$icon.'"></i>', $url , $aClass).'
                     <div>'.$title.'</div>
                 </div>';
     }
@@ -360,7 +375,7 @@ trait ViewsHelpersTrait
      * Generate DetailView for Entry Informations
      *
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function getEntryInformationsDetailView()
     {

@@ -10,11 +10,9 @@ return array(
     'udokmeci\\yii2PhoneValidator' => array($vendorDir . '/udokmeci/yii2-phone-validator/src'),
     'libphonenumber' => array($vendorDir . '/giggsey/libphonenumber-for-php/src'),
     'cebe\\gravatar\\' => array($vendorDir . '/cebe/yii2-gravatar'),
-    'Prophecy\\' => array($vendorDir . '/phpspec/prophecy/src'),
+    'PHPExcel' => array($vendorDir . '/phpoffice/phpexcel/Classes'),
     'Michelf' => array($vendorDir . '/michelf/php-smartypants'),
-    'Imagine' => array($vendorDir . '/imagine/imagine/lib'),
     'HTMLPurifier' => array($vendorDir . '/ezyang/htmlpurifier/library'),
-    'Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/lib'),
     'Diff' => array($vendorDir . '/phpspec/php-diff/lib'),
     'Behat\\Gherkin' => array($vendorDir . '/behat/gherkin/src'),
 );

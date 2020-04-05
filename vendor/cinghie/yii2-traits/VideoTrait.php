@@ -7,12 +7,14 @@
  * @github https://github.com/cinghie/yii2-traits
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-traits
- * @version 1.1.1
+ * @version 1.2.0
  */
 
 namespace cinghie\traits;
 
 use Yii;
+use kartik\form\ActiveField;
+use kartik\widgets\ActiveForm;
 use kartik\widgets\Select2;
 
 /**
@@ -51,7 +53,7 @@ trait VideoTrait
         ];
     }
 
-    /*
+    /**
      * Return array for Video Type
      *
      * @return array
@@ -59,9 +61,9 @@ trait VideoTrait
     public function getVideoTypeSelect2()
     {
         $videotype = [
-            'youtube' => 'YouTube',
-            'vimeo' => 'Vimeo',
-            'dailymotion' => 'Dailymotion'
+	        'youtube' => Yii::t('traits','YouTube'),
+            'vimeo' => Yii::t('traits','Vimeo'),
+            'dailymotion' => Yii::t('traits','Dailymotion')
         ];
 
         return $videotype;
@@ -70,9 +72,9 @@ trait VideoTrait
     /**
      * Generate Video ID Form Widget
      *
-     * @param \kartik\widgets\ActiveForm $form
+     * @param ActiveForm $form
      *
-     * @return \kartik\form\ActiveField
+     * @return ActiveField
      */
     public function getVideoIDWidget($form)
     {
@@ -89,14 +91,14 @@ trait VideoTrait
     /**
      * Generate Video Type Form Widget
      *
-     * @param \kartik\widgets\ActiveForm $form
+     * @param ActiveForm $form
      *
-     * @return \kartik\form\ActiveField
+     * @return ActiveField
      */
     public function getVideoTypeWidget($form)
     {
         /** @var $this \yii\base\Model | \cinghie\traits\VideoTrait */
-        return $form->field($this, 'video_type')->widget(Select2::className(), [
+        return $form->field($this, 'video_type')->widget(Select2::class, [
             'data' => $this->getVideoTypeSelect2(),
             'addon' => [
                 'prepend' => [
@@ -109,9 +111,9 @@ trait VideoTrait
     /**
      * Generate Video Caption Form Widget
      *
-     * @param \kartik\widgets\ActiveForm $form
+     * @param ActiveForm $form
      *
-     * @return \kartik\form\ActiveField
+     * @return ActiveField
      */
     public function getVideoCaptionWidget($form)
     {
@@ -128,9 +130,9 @@ trait VideoTrait
     /**
      * Generate Video Credits Form Widget
      *
-     * @param \kartik\widgets\ActiveForm $form
+     * @param ActiveForm $form
      *
-     * @return \kartik\form\ActiveField
+     * @return ActiveField
      */
     public function getVideoCreditsWidget($form)
     {

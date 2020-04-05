@@ -7,20 +7,24 @@
  * @github https://github.com/cinghie/yii2-traits
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-traits
- * @version 1.1.1
+ * @version 1.2.0
  */
 
 namespace cinghie\traits;
 
 use Yii;
+use kartik\form\ActiveField;
+use kartik\widgets\ActiveForm;
 use kartik\widgets\Select2;
+use yii\base\InvalidParamException;
+use yii\db\ActiveQuery;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
 /**
  * Trait ParentTrait
  *
- * @property integer $parent_id
+ * @property int $parent_id
  */
 trait ParentTrait
 {
@@ -31,8 +35,8 @@ trait ParentTrait
 	public static function rules()
 	{
 		return [
-			[['parent_id'], 'integer'],
-			[['parent_id'], 'exist', 'skipOnError' => true, 'targetClass' => get_called_class(), 'targetAttribute' => [ 'parent_id' => 'id']],
+			[['parent_id'], 'int'],
+			//[['parent_id'], 'exist', 'skipOnError' => true, 'targetClass' => get_called_class(), 'targetAttribute' => [ 'parent_id' => 'id']],
 		];
 	}
 
@@ -47,49 +51,49 @@ trait ParentTrait
 	}
 
 	/**
-	 * @return \yii\db\ActiveQuery
+	 * @return ActiveQuery
 	 */
 	public function getParent()
 	{
-		return $this->hasOne(self::className(), ['id' => 'parent_id'])->from(self::tableName() . ' AS parent');
+		return $this->hasOne(self::class, ['id' => 'parent_id'])->from(self::tableName() . ' AS parent');
 	}
 
 	/**
-	 * @return \yii\db\ActiveQuery
+	 * @return ActiveQuery
 	 */
 	public function getParents()
 	{
-		return $this->hasMany(self::className(), ['id' => 'parent_id'])->from(self::tableName() . ' AS parent');
+		return $this->hasMany(self::class, ['id' => 'parent_id'])->from(self::tableName() . ' AS parent');
 	}
 
 	/**
-	 * @return \yii\db\ActiveQuery
+	 * @return ActiveQuery
 	 */
 	public function getChild()
 	{
-		return $this->hasOne(self::className(), ['parent_id' => 'id'])->from(self::tableName() . ' AS child');
+		return $this->hasOne(self::class, ['parent_id' => 'id'])->from(self::tableName() . ' AS child');
 	}
 
 	/**
-	 * @return \yii\db\ActiveQuery
+	 * @return ActiveQuery
 	 */
 	public function getChilds()
 	{
-		return $this->hasMany(self::className(), ['parent_id' => 'id'])->from(self::tableName() . ' AS child');
+		return $this->hasMany(self::class, ['parent_id' => 'id'])->from(self::tableName() . ' AS child');
 	}
 
 	/**
 	 * Generate Parent Form Widget
 	 *
-	 * @param \kartik\widgets\ActiveForm $form
+	 * @param ActiveForm $form
 	 * @param [] $items
 	 *
-	 * @return \kartik\form\ActiveField
+	 * @return ActiveField
 	 */
 	public function getParentWidget($form,$items)
 	{
 		/** @var $this \yii\base\Model */
-		return $form->field($this, 'parent_id')->widget(Select2::className(), [
+		return $form->field($this, 'parent_id')->widget(Select2::class, [
 			'data' => $items,
 			'addon' => [
 				'prepend' => [
@@ -107,7 +111,7 @@ trait ParentTrait
 	 * @param bool $hideItem
 	 *
 	 * @return string
-	 * @throws \yii\base\InvalidParamException
+	 * @throws InvalidParamException
 	 */
 	public function getParentGridView($field,$url,$hideItem = false)
 	{

@@ -7,13 +7,16 @@
  * @github https://github.com/cinghie/yii2-traits
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-traits
- * @version 1.1.1
+ * @version 1.2.0
  */
 
 namespace cinghie\traits;
 
 use Yii;
+use kartik\form\ActiveField;
+use kartik\widgets\ActiveForm;
 use kartik\widgets\FileInput;
+use yii\base\InvalidParamException;
 use yii\helpers\Url;
 
 /**
@@ -32,7 +35,7 @@ trait AttachmentTrait
     public static function rules()
     {
         return [
-            [['size'], 'integer'],
+            [['size'], 'int'],
             [['extension'], 'string', 'max' => 12],
             [['alias', 'filename', 'mimetype', 'title'], 'string', 'max' => 255]
         ];
@@ -56,47 +59,47 @@ trait AttachmentTrait
 	/**
 	 * Generate File Ipunt Form Widget
 	 *
-	 * @param \kartik\widgets\ActiveForm $form
+	 * @param ActiveForm $form
 	 * @param array $attachType
 	 *
-	 * @return \kartik\form\ActiveField
+	 * @return ActiveField
 	 */
     public function getFileWidget($form,$attachType)
     {
         if($this->filename) {
-
-            return $form->field($this, 'filename')->widget(FileInput::className(), [
+	        /** @var \yii\base\Model $this */
+	        return $form->field($this, 'filename')->widget(FileInput::class, [
 	            'options'=>[
 		            'multiple'=> true
 	            ],
                 'pluginOptions' => [
                     'allowedFileExtensions' => $attachType,
+                    'initialPreview' => $this->getFileUrl(),
+                    'initialPreviewAsData' => true,
+                    'initialPreviewConfig' => [
+	                    ['caption' => $this->filename, 'size' => $this->size]
+                    ],
+                    'overwriteInitial' => true,
                     'previewFileType' => 'any',
                     'showPreview' => true,
                     'showCaption' => true,
                     'showRemove' => false,
-                    'showUpload' => false,
-                    'initialPreview' => $this->getFileUrl(),
-                    'initialPreviewAsData' => true,
-                    'initialPreviewConfig' => [
-                        [ 'caption' => $this->filename, 'size' => $this->size ]
-                    ],
-                    'overwriteInitial' => true
+                    'showUpload' => false
                 ],
             ]);
-
         }
 
-	    return $form->field($this, 'filename')->widget(FileInput::className(), [
+	    /** @var \yii\base\Model $this */
+	    return $form->field($this, 'filename')->widget(FileInput::class, [
 		    'options'=>[
 			    'multiple' => true
 		    ],
 		    'pluginOptions' => [
 			    'allowedFileExtensions' => $attachType,
+			    'browseLabel' => Yii::t('traits', 'Upload'),
 			    'previewFileType' => 'any',
 			    'showRemove' => false,
 			    'showUpload' => false,
-			    'browseLabel' => Yii::t('traits', 'Upload'),
 		    ],
 	    ]);
 
@@ -110,7 +113,6 @@ trait AttachmentTrait
 	 *
 	 * @return string
 	 * @throws \Exception
-	 * @internal param \kartik\widgets\ActiveForm $form
 	 */
 	public function getFilesWidget($attachType,$attachURL)
 	{
@@ -121,8 +123,8 @@ trait AttachmentTrait
 		$initialPreview = array();
 		$initialPreviewConfig = array();
 
-		if(count($attachments)) {
-
+		if(count($attachments))
+		{
 			foreach($attachments as $attach) {
 				$initialPreviewConfig[$i]['caption'] = $attach['title'];
 				$initialPreviewConfig[$i]['size'] = $attach['size'];
@@ -172,7 +174,6 @@ trait AttachmentTrait
 					'showUpload' => false
 				]
 			]);
-
 		}
 
 		return $html;
@@ -181,9 +182,9 @@ trait AttachmentTrait
     /**
      * Generate Extension Form Widget
      *
-     * @param \kartik\widgets\ActiveForm $form
+     * @param ActiveForm $form
      *
-     * @return \kartik\form\ActiveField
+     * @return ActiveField
      */
     public function getExtensionWidget($form)
     {
@@ -200,9 +201,9 @@ trait AttachmentTrait
     /**
      * Generate MimeType Form Widget
      *
-     * @param \kartik\widgets\ActiveForm $form
+     * @param ActiveForm $form
      *
-     * @return \kartik\form\ActiveField
+     * @return ActiveField
      */
     public function getMimeTypeWidget($form)
     {
@@ -219,9 +220,9 @@ trait AttachmentTrait
     /**
      * Generate Size Form Widget
      *
-     * @param \kartik\widgets\ActiveForm $form
+     * @param ActiveForm $form
      *
-     * @return \kartik\form\ActiveField
+     * @return ActiveField
      */
     public function getSizeWidget($form)
     {
@@ -236,21 +237,23 @@ trait AttachmentTrait
     }
 
     /**
-     * return file attached
+     * Return URL to file attached
      *
      * @return string
-     * @throws \yii\base\InvalidParamException
+     * @throws InvalidParamException
      */
     public function getFileUrl()
     {
-        return Yii::getAlias(Yii::$app->controller->module->attachURL).$this->filename;
+    	$fileUrl = Yii::$app->controller->module->attachURL ? Yii::getAlias(Yii::$app->controller->module->attachURL).$this->filename : '';
+
+    	return $fileUrl;
     }
 
     /**
-     * delete file attached
+     * Delete file attached
      *
      * @return boolean
-     * @throws \yii\base\InvalidParamException
+     * @throws InvalidParamException
      */
     public function deleteFile()
     {
@@ -293,8 +296,7 @@ trait AttachmentTrait
             $unit = (int)log($bytes, 1024);
             $units = array('B', 'KB', 'MB', 'GB');
 
-            if (array_key_exists($unit, $units) === true)
-            {
+            if (array_key_exists($unit, $units) === true) {
                 return sprintf('%d %s', $bytes / (1024 * $unit), $units[$unit]);
             }
         }

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-git checkout dev
+#git checkout dev
 git pull
 ./yii migrate --interactive=0
 
@@ -35,14 +35,14 @@ fi
 echo 'git push'
 git push
 
-echo 'need merge to master?'
-read merge
+#echo 'need merge to master?'
+#read merge
 
-if [[ "$merge" = "y" ]]
-then
-git checkout master
-git merge dev
-git push
-git checkout dev
-fi
+#if [[ "$merge" = "y" ]]
+#then
+#git checkout master
+#git merge dev
+#git push
+#git checkout dev
+#fi
 

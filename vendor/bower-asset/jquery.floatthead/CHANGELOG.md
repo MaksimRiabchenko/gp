@@ -1,3 +1,53 @@
+### 2.1.4
+This release is dedicated to my cat. May he rest in catnip and meats.
+
+new features:
+- Added `ariaLabel` function to the config object to give more flexibilty on the values the plugin uses. (doc site updated).
+
+bug fixes:
+- #432 - Improve RTL support.
+- #440 - Aria label does not work with quotes.
+
+### 2.1.3
+Maintenance release. 
+
+bug fixes:
+- #409 - inf recursion printing on FireFox
+- #385 - bottom offset not respected in 'absolute' mode
+- #303 - scrollContainer with other content inside wrapper, header won't scroll out
+- #424 - table header fractional width set incorrectly. 
+
+### 2.1.2
+Maintenance release. 
+
+bug fixes:
+- #363 - scroll container assigned incorrect width because of a jquery 3.2.0 bug
+
+new features:
+- bad rtl support (only works with internal scrolling, not window scrolling)
+
+### 2.1.1
+I goofed, forgot to build dist last release.
+
+- Removed 'floatContainerOverflow' option, removed `overflow-y:hidden` css from scrollContainer.
+
+
+### 2.1.0
+
+- #402 HUGE performance improvement if plugin used on multiple tables on the same page. Over **10x faster** startup time
+on a page with 39 tables. Big props to [@ineuwirth](https://github.com/ineuwirth) for finding this one!
+
+On a side note, the last release was exactly one year ago. I didn't do this on purpose :)
+
+new features:
+- #404 - Adding a 'floatContainerOverflow' option to govern floatContainer CSS
+- #402 - performance improvement with many tables on the same page
+
+bug fixes:
+- #391 - Fix printing on firefox 
+- #399 - Set header size on reflow
+- #361 - Works better on iPad Retina
+         
 ### 2.0.2
 - fix issue with horizontal scrollbars + reflow breaking header position #345, #355
 
@@ -11,6 +61,7 @@ Breaking changes:
 - slim version no longer provided. Will use underscore, or shim the things we need
 - removed allowing deprecated options from 1.3.x
 - moved development version into /src dir and no longer use grunt here
+
 
 nothing big and exciting in version 2, just semvar and breaking changes.
 

@@ -7,12 +7,15 @@
  * @github https://github.com/cinghie/yii2-traits
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-traits
- * @version 1.1.1
+ * @version 1.2.0
  */
 
 namespace cinghie\traits;
 
 use Yii;
+use Cocur\Slugify\Slugify;
+use kartik\form\ActiveField;
+use kartik\widgets\ActiveForm;
 
 /**
  * Trait NameAliasTrait
@@ -46,24 +49,81 @@ trait NameAliasTrait
     }
 
 	/**
-	 * Set alias
+	 * Generate alias from name
+	 *
+	 * @param string $name
+	 *
+	 * @return string
+	 */
+	public function generateAlias($name)
+	{
+		$slugifyOptions = Yii::$app->controller->module->slugifyOptions ?: [
+			'separator' => '-',
+			'lowercase' => true,
+			'trim' => true,
+			'rulesets'  => [
+				'default'
+			]
+		];
+
+		$slugify = new Slugify($slugifyOptions);
+
+		return $slugify->slugify($name);
+	}
+
+	/**
+	 * Set alias from post
 	 *
 	 * @param [] $post
-	 * @param string Sfield
+	 * @param string $field
+	 *
+	 * @return void
 	 */
 	public function setAlias($post,$field)
 	{
+		$slugifyOptions = Yii::$app->controller->module->slugifyOptions ?: [
+			'separator' => '-',
+			'lowercase' => true,
+			'trim' => true,
+			'rulesets'  => [
+				'default'
+			]
+		];
+
+		$slugify = new Slugify($slugifyOptions);
+
 		if($post['alias'] === '') {
-			$this->alias = $this->generateAlias($post[$field]);
+			$this->alias = $slugify->slugify($post[$field]);
 		}
+	}
+
+	/**
+	 * Purge alias by string
+	 *
+	 * @param string $string
+	 *
+	 * @return string
+	 */
+	public function purgeAlias($string)
+	{
+		// remove any '-' from the string they will be used as concatonater
+		$string = str_replace(array('-','_'), ' ', $string);
+
+		// remove any duplicate whitespace, and ensure all characters are alphanumeric
+		$string = preg_replace(array('/\s+/','/[^A-Za-z0-9\-]/'), array('-',''), $string);
+
+		// lowercase and trim
+		$string = strtolower( trim( $string ) );
+
+		return $string;
 	}
 
     /**
      * Generate Name Form Widget
      *
-     * @param \kartik\widgets\ActiveForm $form
+     * @param ActiveForm $form
      *
-     * @return \kartik\form\ActiveField
+     * @return ActiveField
      */
     public function getNameWidget($form)
     {
@@ -78,11 +138,11 @@ trait NameAliasTrait
     }
 
     /**
-     * Generate Alias Form Widget
+     * Generate alias Form Widget
      *
-     * @param \kartik\widgets\ActiveForm $form
+     * @param ActiveForm $form
      *
-     * @return \kartik\form\ActiveField
+     * @return ActiveField
      */
     public function getAliasWidget($form)
     {
@@ -94,27 +154,6 @@ trait NameAliasTrait
                 ]
             ]
         ] )->textInput(['maxlength' => 255]);
-    }
-
-    /**
-     * Generate URL alias by string
-     *
-     * @param string $string
-     *
-     * @return string
-     */
-    public function generateAlias($string)
-    {
-        // remove any '-' from the string they will be used as concatonater
-        $string = str_replace(array('-','_'), ' ', $string);
-
-        // remove any duplicate whitespace, and ensure all characters are alphanumeric
-        $string = preg_replace(array('/\s+/','/[^A-Za-z0-9\-]/'), array('-',''), $string);
-
-        // lowercase and trim
-        $string = trim(strtolower($string));
-
-        return $string;
     }
 
 }
