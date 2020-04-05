@@ -36,7 +36,7 @@ AppAsset::register($this);
                     <div class="col-sm-6">
                         <div class="contactinfo">
                             <ul class="nav nav-pills">
-                                <li><a href="#"><i class="fa fa-phone"></i> +38 050 4625757</a></li>
+                                <li><a href="#"><i class="fa fa-phone"></i> +38 066 6853442</a></li>
                                 <li><a href="#"><i class="fa fa-envelope"></i> info@gpyro.com</a></li>
                             </ul>
                         </div>
