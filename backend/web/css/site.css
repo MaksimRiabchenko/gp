@@ -1,0 +1,4 @@
+/* select2 over AdminLTE2 fix */
+.select2-container .select2-selection--single .select2-selection__rendered {
+    margin-top: -0px!important;
+}
