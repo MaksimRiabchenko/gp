@@ -8,9 +8,8 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  background:;
   position: relative;
-  font-weight:400px;
+  font-weight: 400;
 }
 
 ul li {
@@ -68,7 +67,8 @@ a#scrollUp i{
 **************************/
 
 .header_top {
-  background: none repeat scroll 0 0 #F0F0E9;
+  background: none repeat scroll 0 0 #292929;
+  height: 100px;
 }
 
 .contactinfo ul li:first-child{
@@ -118,14 +118,16 @@ a#scrollUp i{
 
 .fa-facebook:hover {
   background: #0083C9;
+  padding: 15px 20px;
 }
 
-.fa-twitter:hover  {
+.fa-info:hover  {
 	background:#5BBCEC;
 }
 
-.fa-linkedin:hover  {
-	background:#FF4518;
+.fa-instagram:hover  {
+	background: #ff8fe5;
+  padding: 15px 20px;
 }
 
 .fa-dribbble:hover  {
@@ -134,6 +136,7 @@ a#scrollUp i{
 
 .fa-google-plus:hover  {
 	background:#CE3C2D;
+  padding: 15px 20px;
 }
 
 .header-middle .container .row {
@@ -201,7 +204,7 @@ a#scrollUp i{
   background: #FFFFFF;
   color: #696763;
   font-family: 'Roboto', sans-serif;
-  font-size: 14px;
+  font-size: 24px;
   font-weight: 300;
   padding:0;
   padding-right: 0;
@@ -215,8 +218,8 @@ a#scrollUp i{
 
 
 .shop-menu ul li a:hover {
-	color:#fe980f;
-	background:#fff;
+	color: rgba(166, 166, 166, 0.69);
+	background: #ffffff;
 }
 
 
@@ -899,7 +902,6 @@ h2.title {
   transition: height 500ms ease 0s;
   width: 100%;
   display: block;
-  opacity:;
 }
 
 .single-products:hover .product-overlay {
@@ -2523,4 +2525,20 @@ h2.title {
 
 .dvizh-cart-block .dropdown-menu {
   min-width: 450px !important;
+}
+
+.col-sm-6 {
+  width: 30% !important;
+}
+
+.contactinfo {
+  padding-top: 20px;
+}
+
+.social-icons {
+  padding-top: 20px;
+}
+
+.col-sm-8 {
+  float: left !important;
 }
