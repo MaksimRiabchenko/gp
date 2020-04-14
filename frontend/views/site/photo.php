@@ -10,7 +10,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-about">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p><img src="var/www/gp/frontend/web/images/foto/1.jpg" width="1000" height="715" alt="1"></p>
+    <p><img src="/images/foto/1.jpg" width="500" height="400" alt="1"></p>
 
 
 

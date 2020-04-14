@@ -126,12 +126,13 @@ a#scrollUp i{
 }
 
 .fa-instagram:hover  {
-	background: #ff8fe5;
+	background: #ff2cae;
   padding: 15px 20px;
 }
 
-.fa-dribbble:hover  {
-	background:#90C9DC;
+.fa-youtube-play:hover  {
+	background: #dc000e;
+  padding: 15px 20px;
 }
 
 .fa-google-plus:hover  {

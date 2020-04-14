@@ -35,7 +35,7 @@ AppAsset::register($this);
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="logo pull-left">
-                            <a href="/"><img src="/images/home/logo.png" alt="" /></a>
+                            <a href="/"><img src="/images/home/logo3.jpg" alt="" /></a>
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -50,8 +50,8 @@ AppAsset::register($this);
                             <ul class="nav navbar-nav">
                                 <li><a href="#"><i style="color:#ffffff" class="fa fa-facebook"></i></a></li>
                                 <li><a href="#"><i style="color:#ffffff" class="fa fa-google-plus"></i></a></li>
-                                <li><a href="#"><i style="color:#ffffff" class="fa fa-instagram"></i></a></li>
-
+                                <li><a href="https://instagram.com/max_primachenko?igshid=12vhacmjdwqhr" target="_blank"><i style="color:#ffffff" class="fa fa-instagram"></i></a></li>
+                                <li><a href="https://www.youtube.com" target="_blank"><i style="color:#ffffff" class="fa fa-youtube-play"></i></a></li>
                             </ul>
                         </div>
                     </div>
