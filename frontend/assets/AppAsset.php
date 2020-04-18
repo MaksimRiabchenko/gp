@@ -19,7 +19,8 @@ class AppAsset extends AssetBundle
         'css/price-range.css',
         'css/animate.css',
         'css/main.css',
-        'css/responsive.css'
+        'css/responsive.css',
+        'css/magnific-popup.css'
     ];
     public $js = [
         'js/html5shiv.js',
@@ -27,10 +28,13 @@ class AppAsset extends AssetBundle
         'js/jquery.scrollUp.min.js',
         'js/bootstrap.min.js',
         'js/jquery.prettyPhoto.js',
-        'js/main.js'
+        'js/main.js',
+        'js/jquery.magnific-popup.min.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset'
     ];
+
+    public $jsOptions = ['position' => \yii\web\View::POS_HEAD];
 }

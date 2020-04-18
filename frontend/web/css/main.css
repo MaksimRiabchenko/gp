@@ -891,7 +891,8 @@ h2.title {
 }
 
 .productinfo{
- position:relative;
+  position: relative;
+  float: left;
 }
 
 .product-overlay {

@@ -10,10 +10,10 @@ use common\helpers\UserHelper;
 
 /* @var $this yii\web\View */
 
-$header = 'Items';
+$header = 'Photo items';
 $this->title = $header;
 $this->params['breadcrumbs'][] = [
-    'label' => 'Items',
+    'label' => 'Photo Items',
 ];
 
 ItemIndexAsset::register($this);
@@ -28,32 +28,22 @@ ItemIndexAsset::register($this);
     </div>
 <?php } ?>
 
-<div class="form-group field-itemform-title required">
-    <label class="control-label" for="itemform-title"></label>
-    <?= Select2::widget([
-        'value' => isset($category) ? $category->id : null,
-        'name' => 'category',
-        'data' => $categoriesList,
-        'language' => 'en',
-        'options' => ['placeholder' => 'Select a category...'],
-        'pluginOptions' => [
-            'allowClear' => true
-        ],
-        'pluginEvents' => [
-            "change" => "document.item_index.onCategoryChange",
-        ]
-    ]) ?>
-</div>
-
 <?php if (!empty($categoryId) || UserHelper::hasRole('admin')) { ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
             'id',
             'title',
-            'article',
-            'price',
-            'description',
+            [
+                'label' => 'Картинка',
+                'format' => 'raw',
+                'value' => function($data){
+                    return '<a href="'.$data->getLogoWebPath().'" target="_blank">'.Html::img(Url::toRoute($data->getLogoWebPath()),[
+                        'alt'=>'yii2 - картинка в gridview',
+                        'style' => 'width:150px;'
+                    ]) . '</a>';
+                },
+            ],
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{update} {delete}',

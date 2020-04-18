@@ -40,7 +40,7 @@ class ContactForm extends Model
         return [
             'verifyCode' => 'Код подтверждения',
             'name' => 'Имя',
-            'email' => 'Verification Code',
+            'email' => 'E-mail',
             'subject' => 'Заголовок',
             'body' => 'Содержание',
         ];

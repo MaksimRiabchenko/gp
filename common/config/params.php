@@ -1,7 +1,7 @@
 <?php
 return [
-    'adminEmail' => 'admin@example.com',
-    'supportEmail' => 'support@example.com',
+    'adminEmail' => 'vampire.mr@gmail.com',
+    'supportEmail' => 'vampire.mr@gmail.com',
     'user.passwordResetTokenExpire' => 3600,
     'webDirs' => [
         'images' => [

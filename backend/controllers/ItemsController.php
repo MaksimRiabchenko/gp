@@ -139,6 +139,7 @@ class ItemsController extends BaseController
 
                         if ($formModel->file) {
                             // save image
+                            $model->deleteOldFile($model->logo);
                             $imagesPath = $model->getImagesPath();
                             if (!is_dir($imagesPath)) {
                                 BaseFileHelper::createDirectory($imagesPath, 0777, true);
@@ -164,7 +165,7 @@ class ItemsController extends BaseController
                             $itemOptionValue->setAttributes([
                                 'item_id' => $model->id,
                                 'option_id' => $itemOptions->id,
-                                'string' => $itemOptions->value //TODO: додати байду, яка буде писати значення в праивльні поля
+                                'string' => $itemOptions->value
                             ]);
 
                             if (!$itemOptionValue->save()) {
@@ -183,8 +184,6 @@ class ItemsController extends BaseController
                 }
             } catch
             (Exception $e) {
-                // треба писати в логи
-                //TODO: logger
             }
         }
 

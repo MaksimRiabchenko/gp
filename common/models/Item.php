@@ -58,9 +58,7 @@ class Item extends BaseModel implements \dvizh\cart\interfaces\CartElement
     public function rules()
     {
         return [
-            [['title', 'category_id'], 'required'],
-            [['article', 'title', 'description', 'category_id', 'logo', 'video_url'], 'string', 'max' => 255],
-            [['price'], 'double'],
+            [['title'], 'required'],
             [['user_id'], 'integer']
         ];
     }
@@ -72,12 +70,8 @@ class Item extends BaseModel implements \dvizh\cart\interfaces\CartElement
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'article' => Yii::t('app', 'Article'),
             'title' => Yii::t('app', 'Title'),
-            'description' => Yii::t('app', 'Description'),
-            'category_id' => Yii::t('app', 'Category ID'),
-            'price' => Yii::t('app', 'Price'),
-            'logo' => Yii::t('app', 'Logo'),
+            'logo' => Yii::t('app', 'Photo'),
             'user_id' => Yii::t('app', 'User ID'),
         ];
     }
@@ -135,7 +129,15 @@ class Item extends BaseModel implements \dvizh\cart\interfaces\CartElement
      */
     public function getImagesPath()
     {
-        return Yii::$app->params['uploadDirs']['images']['items'] . DIRECTORY_SEPARATOR . $this->id . DIRECTORY_SEPARATOR;
+        return Yii::$app->params['uploadDirs']['images']['items'] . DIRECTORY_SEPARATOR;
+    }
+
+    /**
+     * @return string
+     */
+    public function deleteOldFile($file)
+    {
+        if (is_file(Yii::$app->params['uploadDirs']['images']['items'] . DIRECTORY_SEPARATOR . $file)) return unlink(Yii::$app->params['uploadDirs']['images']['items'] . DIRECTORY_SEPARATOR . $file);
     }
 
     public function getLogoPath()
@@ -149,8 +151,6 @@ class Item extends BaseModel implements \dvizh\cart\interfaces\CartElement
     public function getLogoWebPath()
     {
         return Yii::$app->params['webDirs']['images']['items'] .
-            '/' .
-            $this->id .
             '/' .
             $this->logo;
     }

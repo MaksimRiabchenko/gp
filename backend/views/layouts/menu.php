@@ -12,7 +12,7 @@ echo dmstr\widgets\Menu::widget(
                 'icon' => ' fa-users',
                 'visible' => Yii::$app->user->can('manageUsers')
             ],
-            [
+            /*[
                 'label' => Yii::t('app', 'Categories'),
                 'url' => ['/categories'],
                 'icon' => ' fa-align-justify',
@@ -54,23 +54,23 @@ echo dmstr\widgets\Menu::widget(
 
                     ],
                 ],
-            ],
+            ],*/
             [
-                'label' => Yii::t('app', 'Items'),
+                'label' => Yii::t('app', 'Photo items'),
                 'url' => ['/items'],
                 'active' => ViewHelper::isActive($this->context, 'items', ['index', 'create', 'update']),
                 'visible' => Yii::$app->user->can('items') ||
                     Yii::$app->user->can('deleteItems') ||
                     Yii::$app->user->can('addEditItems')
             ],
-            [
+            /*[
                 'label' => Yii::t('app', 'Item options'),
                 'url' => ['/item-options'],
                 'active' => ViewHelper::isActive($this->context, 'item-options', ['index', 'create', 'update']),
                 'visible' => Yii::$app->user->can('itemOptions') ||
                     Yii::$app->user->can('deleteItemOption') ||
                     Yii::$app->user->can('addEditItemOption')
-            ],
+            ],*/
             [
                 'label' => 'Gii',
                 'icon' => 'file-code-o',

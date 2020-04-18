@@ -29,13 +29,10 @@ class ItemForm extends \yii\base\Model
 
     private $tmpItemOptions = [];
 
-    //TODO: не забудь валіlацію, блеат!!
     public function rules()
     {
         return [
-            [['title', 'description', 'category_id', 'article'], 'required'],
-            [['price'], 'double'],
-            [['video_url'], 'string'],
+            [['title', 'file'], 'required'],
             [['file'], 'file', 'extensions' => 'png, jpg'],
         ];
     }
@@ -52,10 +49,6 @@ class ItemForm extends \yii\base\Model
                         $value->addRule(['value'], 'integer', ['message' => '{attribute} must be an integer type']);
                         break;
 
-                    case 1:
-                        $value->addRule(['value'], 'decimal', ['message' => '{attribute} must be an integer type']);
-                        break;
-
                     case 2:
                         $value->addRule(['value'], 'string', ['message' => '{attribute} must be an integer type']);
                         break;
@@ -63,13 +56,6 @@ class ItemForm extends \yii\base\Model
                     default:
                         throw new \Exception('There is no option type to create validator rule');
                 }
-
-                if (!$value->validate())
-                {
-                    //TODO: не забудь тут доковбаисти валідатори параметрів
-                    var_dump($value->getErrors());
-                }
-
             } else {
                 throw new \Exception('Cant find item option');
             }
@@ -104,7 +90,7 @@ class ItemForm extends \yii\base\Model
 
     public function getFileName()
     {
-        return substr(md5($this->file->baseName . microtime(true)), 0, 6) .
+        return $this->file->baseName .
             '.' .
             $this->file->extension;
     }

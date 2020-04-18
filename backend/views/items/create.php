@@ -5,7 +5,7 @@ $this->params['breadcrumbs'][] = [
     'url' => ['/items'],
 ];
 
-$header = ucfirst($action) . ' item';
+$header = ucfirst($action) . ' photo item';
 $this->title = $header;
 $this->params['breadcrumbs'][] = [
     'label' => $header,
@@ -17,6 +17,5 @@ $this->params['breadcrumbs'][] = [
     'category' => !empty($category) ? $category : null,
     'item' => $action != 'create' ? $item : null,
     'model' => $formModel,
-    'action' => $action,
-    'categoriesList' => $categoriesList
+    'action' => $action
 ]); ?>
