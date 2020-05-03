@@ -20,7 +20,8 @@ class AppAsset extends AssetBundle
         'css/animate.css',
         'css/main.css',
         'css/responsive.css',
-        'css/magnific-popup.css'
+        'css/magnific-popup.css',
+        'css/jquery-ui.css'
     ];
     public $js = [
         'js/html5shiv.js',
@@ -29,7 +30,8 @@ class AppAsset extends AssetBundle
         'js/bootstrap.min.js',
         'js/jquery.prettyPhoto.js',
         'js/main.js',
-        'js/jquery.magnific-popup.min.js'
+        'js/jquery.magnific-popup.min.js',
+        'js/jquery-ui.min.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

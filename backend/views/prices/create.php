@@ -1,11 +1,11 @@
 <?php
 
 $this->params['breadcrumbs'][] = [
-    'label' => 'Measures',
-    'url' => ['/measures'],
+    'label' => 'Prices',
+    'url' => ['/prices'],
 ];
 
-$header = ucfirst($action) . ' measure';
+$header = ucfirst($action) . ' prices page';
 $this->title = $header;
 $this->params['breadcrumbs'][] = [
     'label' => $header,
@@ -14,7 +14,8 @@ $this->params['breadcrumbs'][] = [
 ?>
 
 <?= $this->render('_form', [
-    'categoriesList' => $categoriesList,
+    'category' => !empty($category) ? $category : null,
+    'price' => $action != 'create' ? $price : null,
     'model' => $formModel,
     'action' => $action
 ]); ?>

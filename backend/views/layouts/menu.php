@@ -12,49 +12,6 @@ echo dmstr\widgets\Menu::widget(
                 'icon' => ' fa-users',
                 'visible' => Yii::$app->user->can('manageUsers')
             ],
-            /*[
-                'label' => Yii::t('app', 'Categories'),
-                'url' => ['/categories'],
-                'icon' => ' fa-align-justify',
-                'active' => ViewHelper::isActive($this->context, 'categories', ['index', 'create', 'update']),
-                'visible' => Yii::$app->user->can('categories') ||
-                    Yii::$app->user->can('deleteCategory') ||
-                    Yii::$app->user->can('addEditCategory')
-            ],
-            [
-                'label' => Yii::t('app', 'Measures'),
-                'url' => ['/measures'],
-                'icon' => ' fa-arrows-v',
-                'active' => ViewHelper::isActive($this->context, 'measures', ['index', 'create', 'update']),
-                'visible' => Yii::$app->user->can('measures') ||
-                    Yii::$app->user->can('deleteMeasure') ||
-                    Yii::$app->user->can('addEditMeasure')
-            ],
-            [
-                'label' => Yii::t('app', 'Orders'),
-                'url' => '#',
-                'icon' => ' fa-shopping-cart',
-                'visible' => Yii::$app->user->can('orders'),
-                'items' => [
-                    [
-                        'label' => Yii::t('app', 'Orders list'),
-                        'url' => ['/order/order'],
-                    ],
-                    ['label' => Yii::t('app', 'Fields'),
-                        'url' => ['/order/field'],
-                        'visible' => Yii::$app->user->can('configOrder'),
-                    ],
-                    ['label' => Yii::t('app', 'Shipping type'),
-                        'url' => ['/order/shipping-type'],
-                        'visible' => Yii::$app->user->can('configOrder'),
-                    ],
-                    ['label' => Yii::t('app', 'Payment params'),
-                        'url' => ['/order/payment-type'],
-                        'visible' => Yii::$app->user->can('configOrder'),
-
-                    ],
-                ],
-            ],*/
             [
                 'label' => Yii::t('app', 'Photo items'),
                 'url' => ['/items'],
@@ -63,14 +20,14 @@ echo dmstr\widgets\Menu::widget(
                     Yii::$app->user->can('deleteItems') ||
                     Yii::$app->user->can('addEditItems')
             ],
-            /*[
-                'label' => Yii::t('app', 'Item options'),
-                'url' => ['/item-options'],
-                'active' => ViewHelper::isActive($this->context, 'item-options', ['index', 'create', 'update']),
-                'visible' => Yii::$app->user->can('itemOptions') ||
-                    Yii::$app->user->can('deleteItemOption') ||
-                    Yii::$app->user->can('addEditItemOption')
-            ],*/
+            [
+                'label' => Yii::t('app', 'Prices'),
+                'url' => ['/prices'],
+                'active' => ViewHelper::isActive($this->context, 'prices', ['index', 'create', 'update']),
+                'visible' => Yii::$app->user->can('prices') ||
+                    Yii::$app->user->can('deletePrice') ||
+                    Yii::$app->user->can('addEditPrices')
+            ],
             [
                 'label' => 'Gii',
                 'icon' => 'file-code-o',
@@ -105,23 +62,6 @@ echo dmstr\widgets\Menu::widget(
                         'url' => ['/debug'],
                         Yii::$app->user->can('developerTools')
                     ],
-                    /*[
-                        'label' => 'Level One',
-                        'icon' => 'circle-o',
-                        'url' => '#',
-                        'items' => [
-                            ['label' => 'Level Two', 'icon' => 'circle-o', 'url' => '#',],
-                            [
-                                'label' => 'Level Two',
-                                'icon' => 'circle-o',
-                                'url' => '#',
-                                'items' => [
-                                    ['label' => 'Level Three', 'icon' => 'circle-o', 'url' => '#',],
-                                    ['label' => 'Level Three', 'icon' => 'circle-o', 'url' => '#',],
-                                ],
-                            ],
-                        ],
-                    ],*/
                 ],
             ],
         ],

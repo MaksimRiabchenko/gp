@@ -32,7 +32,7 @@ class ItemForm extends \yii\base\Model
     public function rules()
     {
         return [
-            [['title', 'file'], 'required'],
+            [['title'], 'required'],
             [['file'], 'file', 'extensions' => 'png, jpg'],
         ];
     }

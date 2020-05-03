@@ -33,10 +33,6 @@ ItemAsset::register($this);
 
     <?= $form->field($model, 'file')->fileInput()->label('Photo') ?>
 
-    <?php if ($action == 'update') { ?>
-        <?= $this->render('item_options_update', ['item' => $item]) ?>
-    <?php } ?>
-
     <div class="default-fields-end"></div>
 
     <div class="form-group">

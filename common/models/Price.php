@@ -7,16 +7,15 @@ use yii\behaviors\AttributeBehavior;
 use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "items".
+ * This is the model class for table "prices".
  *
  * @property int $id
  * @property string $title
  * @property string $description
- * @property string $logo
  * @property int $user_id
  *
  */
-class Item extends BaseModel
+class Price extends BaseModel
 {
 
     /**
@@ -40,7 +39,7 @@ class Item extends BaseModel
      */
     public static function tableName()
     {
-        return 'items';
+        return 'prices';
     }
 
     /**
@@ -49,7 +48,7 @@ class Item extends BaseModel
     public function rules()
     {
         return [
-            [['title'], 'required'],
+            [['title', 'article', 'description'], 'required'],
             [['user_id'], 'integer']
         ];
     }
@@ -79,19 +78,8 @@ class Item extends BaseModel
      * @throws \Throwable
      * @throws \yii\db\StaleObjectException
      */
-    public function deleteItem()
+    public function deletePrice()
     {
-        // delete option values
-        foreach ($this->itemOptionValues as $optionValue) {
-            if (!$optionValue->delete()) {
-                throw new \Exception('Cant delete option value');
-            }
-        }
-
-        //delete logo
-        if (!empty($this->logoPath)) {
-            @unlink($this->logoPath);
-        }
         //delete item
         return $this->delete();
     }

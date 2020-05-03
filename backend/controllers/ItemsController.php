@@ -84,8 +84,7 @@ class ItemsController extends BaseController
             return $this->render('create', [
                 'category' => !empty($category) ? $category : null,
                 'action' => 'create',
-                'formModel' => $formModel,
-                'categoriesList' => Category::getArrayList(),
+                'formModel' => $formModel
             ]);
         }
 
@@ -108,7 +107,6 @@ class ItemsController extends BaseController
                 'item' => $model,
                 'action' => 'update',
                 'formModel' => $formModel,
-                'categoriesList' => Category::getArrayList(),
             ]);
         }
 
@@ -175,7 +173,7 @@ class ItemsController extends BaseController
                         }
 
                         $this->setFlash('success', Yii::t('app', 'Success!'));
-                        return $this->redirect(['items/index/' . $model->category_id]);
+                        return $this->redirect(['items/index/']);
                     } else {
                         $this->setFlash('error', 'Cant save model: ' . print_r($model->getErrors(), 1));
                     }
@@ -196,10 +194,6 @@ class ItemsController extends BaseController
      */
     public function actionIndex(int $id = null)
     {
-        $viewData = [
-            'categoryId' => $id,
-            'categoriesList' => Category::getArrayList(),
-        ];
 
         $items = UserHelper::hasRole('admin') ?
             Item::find() :
