@@ -119,7 +119,7 @@ AppAsset::register($this);
     <div class="footer-bottom">
         <div class="container">
             <div class="row">
-                <p class="pull-left">Copyright © <?= date('Y')?> <a href="gpyro.com">gpyro.com</a>. All rights reserved.</p>
+                <p class="pull-left">Copyright © <?= date('Y')?> Примаченко Максим IПЗр-16к</p>
             </div>
         </div>
     </div>
