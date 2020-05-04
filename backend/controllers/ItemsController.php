@@ -238,13 +238,12 @@ class ItemsController extends BaseController
     {
         /** @var Item $model */
         $model = $this->getModel($id);
-        $categoryId = $model->category_id;
 
         $model->deleteItem() ?
             $this->setFlash('success', Yii::t('app', 'Deleted')) :
             $this->setFlash('error', 'Cant delete item');
 
-        return $this->redirect(['items/index/' . $categoryId]);
+        return $this->redirect(['items/index/']);
     }
 
 }

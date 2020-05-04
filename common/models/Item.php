@@ -81,17 +81,6 @@ class Item extends BaseModel
      */
     public function deleteItem()
     {
-        // delete option values
-        foreach ($this->itemOptionValues as $optionValue) {
-            if (!$optionValue->delete()) {
-                throw new \Exception('Cant delete option value');
-            }
-        }
-
-        //delete logo
-        if (!empty($this->logoPath)) {
-            @unlink($this->logoPath);
-        }
         //delete item
         return $this->delete();
     }
